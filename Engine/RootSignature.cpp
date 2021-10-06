@@ -1,10 +1,15 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "RootSignature.h"
 
 void RootSignature::Init(ComPtr<ID3D12Device> device)
 {
-	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(D3D12_DEFAULT);
-	sigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT; // ÀÔ·Â Á¶¸³±â ´Ü°è
+	CD3DX12_ROOT_PARAMETER param[2];
+	param[0].InitAsConstantBufferView(0);		// 0ë²ˆ -> b0
+	param[1].InitAsConstantBufferView(1);		// 1ë²ˆ -> b1
+
+
+	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(2, param);
+	sigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT; // ìž…ë ¥ ì¡°ë¦½ê¸° ë‹¨ê³„
 
 	ComPtr<ID3DBlob> blobSignature;
 	ComPtr<ID3DBlob> blobError;
